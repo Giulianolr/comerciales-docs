@@ -21,9 +21,11 @@
 
 ### Si eres **Developer Frontend (Jonathan)**
 1. [README.md](README.md) — Context (10 min)
-2. [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) — User flows (30 min)
-3. [ARQUITECTURA.md](docs/ARQUITECTURA.md) — Tech stack + UI (20 min)
-4. [Plan detallado](/plans/swirling-knitting-hickey.md) — Sprints (15 min)
+2. [UI_GERENTE.md](docs/UI_GERENTE.md) — **NUEVO** Mockups + componentes dashboard (25 min)
+3. [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) — User flows (30 min)
+4. [ARQUITECTURA.md](docs/ARQUITECTURA.md) — Tech stack + decisiones (20 min)
+5. **Código base:** `npm install && npm run dev` en repo comerciales-frontend
+6. [Plan detallado](/plans/swirling-knitting-hickey.md) — Sprints (15 min)
 
 ### Si eres **Operario/Capacitador**
 1. [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) — Step by step (30 min)
@@ -52,6 +54,7 @@
 | [MODELO_DATOS.md](docs/MODELO_DATOS.md) | Base de Datos | Backend Dev | 11 tablas, relaciones, índices, constraints, triggers | ✅ |
 | [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) | UX/Operaciones | Frontend Dev, Operarios | Paso a paso, pantallas, situaciones especiales | ✅ |
 | [INFRAESTRUCTURA_ECONOMICA.md](docs/INFRAESTRUCTURA_ECONOMICA.md) | Infraestructura | PM, Backend Dev | VPS self-hosted, costos bajos ($33.60/mes), trade-offs | ✅ NUEVO |
+| [UI_GERENTE.md](docs/UI_GERENTE.md) | Interfaz Gráfica | Frontend Dev, PM | **NUEVO** Mockups ASCII 7 vistas, componentes Vue3, dark theme, palette | ✅ NUEVO |
 | [Plan detallado](/plans/swirling-knitting-hickey.md) | Implementación | Devs, PM | 6 Sprints, tareas, timeline, análisis costos (REVISADO) | ✅ |
 
 ### 📁 Carpetas de Documentación (Por llenar)
@@ -84,6 +87,8 @@
 - **¿Cómo se auditan los datos?** → [MODELO_DATOS.md](docs/MODELO_DATOS.md) - Sección 11
 
 ### Operaciones & UX
+- **¿Cómo se ve el dashboard del gerente?** → [UI_GERENTE.md](docs/UI_GERENTE.md) - Mockups ASCII
+- **¿Qué componentes Vue3 hay?** → [UI_GERENTE.md](docs/UI_GERENTE.md) - Sección Estructura
 - **¿Cuál es el flujo de una venta?** → [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) - Sección 3
 - **¿Qué hace cada rol?** → [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) - Sección 1
 - **¿Cómo manejo situaciones especiales?** → [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) - Sección 4
