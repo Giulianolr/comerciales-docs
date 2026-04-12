@@ -16,12 +16,14 @@
 ### Si eres **Developer Backend (Allan)**
 1. [README.md](README.md) — Context (10 min)
 2. [ARQUITECTURA.md](docs/ARQUITECTURA.md) — Full architecture (30 min)
-3. [MODELO_DATOS.md](docs/MODELO_DATOS.md) — Database schema (20 min)
-4. [Plan detallado](/plans/swirling-knitting-hickey.md) — Sprints (15 min)
+3. [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) — Database schema (20 min)
+4. [SPRINT0_BACKEND_SETUP.md](docs/SPRINT0_BACKEND_SETUP.md) — Levantar entorno local Docker (10 min)
+5. [BACKEND_PROXIMOS_PASOS.md](docs/BACKEND_PROXIMOS_PASOS.md) — Qué hacer ahora (5 min)
+6. [Plan detallado](/plans/swirling-knitting-hickey.md) — Sprints (15 min)
 
 ### Si eres **Developer Frontend (Jonathan)**
 1. [README.md](README.md) — Context (10 min)
-2. [UI_GERENTE.md](docs/UI_GERENTE.md) — **NUEVO** Mockups + componentes dashboard (25 min)
+2. [FRONTEND_UI_GERENTE.md](docs/FRONTEND_UI_GERENTE.md) — Mockups + componentes dashboard (25 min)
 3. [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) — User flows (30 min)
 4. [ARQUITECTURA.md](docs/ARQUITECTURA.md) — Tech stack + decisiones (20 min)
 5. **Código base:** `npm install && npm run dev` en repo comerciales-frontend
@@ -50,12 +52,25 @@
 
 | Documento | Enfoque | Audiencia | Contenido | Estado |
 |-----------|---------|-----------|-----------|--------|
-| [ARQUITECTURA.md](docs/ARQUITECTURA.md) | Técnica | Devs, Tech Lead | Diagramas C4, stack, decisiones, trade-offs, flujo E2E | ✅ |
-| [MODELO_DATOS.md](docs/MODELO_DATOS.md) | Base de Datos | Backend Dev | 11 tablas, relaciones, índices, constraints, triggers | ✅ |
-| [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) | UX/Operaciones | Frontend Dev, Operarios | Paso a paso, pantallas, situaciones especiales | ✅ |
-| [INFRAESTRUCTURA_ECONOMICA.md](docs/INFRAESTRUCTURA_ECONOMICA.md) | Infraestructura | PM, Backend Dev | VPS self-hosted, costos bajos ($33.60/mes), trade-offs | ✅ NUEVO |
-| [UI_GERENTE.md](docs/UI_GERENTE.md) | Interfaz Gráfica | Frontend Dev, PM | **NUEVO** Mockups ASCII 7 vistas, componentes Vue3, dark theme, palette | ✅ NUEVO |
+| [ARQUITECTURA.md](docs/ARQUITECTURA.md) | Técnica General | Devs, Tech Lead | Diagramas C4, stack, decisiones, trade-offs, flujo E2E | ✅ |
+| [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) | Backend — Base de Datos | Backend Dev | 11 tablas, relaciones, índices, constraints, triggers | ✅ |
+| [BACKEND_INFRAESTRUCTURA_ECONOMICA.md](docs/BACKEND_INFRAESTRUCTURA_ECONOMICA.md) | Backend — Infraestructura | PM, Backend Dev | VPS self-hosted, costos bajos ($33.60/mes), trade-offs | ✅ |
+| [BACKEND_GCP_SETUP_COMPLETADO.md](docs/BACKEND_GCP_SETUP_COMPLETADO.md) | Backend — Infra | Backend Dev | Cloud SQL, Redis, Storage activos en GCP | ✅ |
+| [BACKEND_SETUP_GCP_VSCODE.md](docs/BACKEND_SETUP_GCP_VSCODE.md) | Backend — Dev Setup | Backend Dev | Vincular GCP a VSCode para desarrollo local | ✅ |
+| [BACKEND_DIAGRAMA_FLUJO_INFRA.md](docs/BACKEND_DIAGRAMA_FLUJO_INFRA.md) | Backend — Infra | Backend Dev, PM | Diagramas ASCII de infraestructura GCP | ✅ |
+| [BACKEND_ESTRATEGIA_HIBRIDA.md](docs/BACKEND_ESTRATEGIA_HIBRIDA.md) | Backend — Infra | Backend Dev, PM | GCP Free Trial + VPS, estrategia de costos | ✅ |
+| [SPRINT0_BACKEND_SETUP.md](docs/SPRINT0_BACKEND_SETUP.md) | Backend — DevOps | Backend Dev | Docker compose, fix migración Alembic, validación stack local | ✅ |
+| [BACKEND_PROXIMOS_PASOS.md](docs/BACKEND_PROXIMOS_PASOS.md) | Backend — Roadmap | Backend Dev | 5 pasos priorizados: auth JWT, tests, CI, seed, seguridad | ✅ |
+| [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) | Operaciones | Frontend Dev, Operarios | Paso a paso, pantallas, situaciones especiales | ✅ |
+| [FRONTEND_UI_GERENTE.md](docs/FRONTEND_UI_GERENTE.md) | Frontend — Interfaz | Frontend Dev, PM | Mockups ASCII 7 vistas, componentes Vue3, dark theme, palette | ✅ |
 | [Plan detallado](/plans/swirling-knitting-hickey.md) | Implementación | Devs, PM | 6 Sprints, tareas, timeline, análisis costos (REVISADO) | ✅ |
+
+### 🔧 Registro Central de Variables
+
+| Archivo | Prefijo | Repo origen | Variables |
+|---------|---------|-------------|-----------|
+| [variables/BKND_VARIABLES.env](variables/BKND_VARIABLES.env) | `BKND_` | comerciales-backend | App, DB, Redis, SMTP, Alertas, AI (16 vars) |
+| [variables/FRNT_VARIABLES.env](variables/FRNT_VARIABLES.env) | `FRNT_` | comerciales-frontend | API URL, WS, App config, Feature flags (6 vars) |
 
 ### 📁 Carpetas de Documentación (Por llenar)
 
@@ -82,13 +97,13 @@
 - **¿Cuál es el timeline completo?** → [Plan](/plans/swirling-knitting-hickey.md) - Sección 5
 
 ### Base de Datos
-- **¿Cuál es el schema de DB?** → [MODELO_DATOS.md](docs/MODELO_DATOS.md) - Sección 2
-- **¿Qué tablas existen?** → [MODELO_DATOS.md](docs/MODELO_DATOS.md) - Sección 3
-- **¿Cómo se auditan los datos?** → [MODELO_DATOS.md](docs/MODELO_DATOS.md) - Sección 11
+- **¿Cuál es el schema de DB?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 2
+- **¿Qué tablas existen?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 3
+- **¿Cómo se auditan los datos?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 11
 
 ### Operaciones & UX
-- **¿Cómo se ve el dashboard del gerente?** → [UI_GERENTE.md](docs/UI_GERENTE.md) - Mockups ASCII
-- **¿Qué componentes Vue3 hay?** → [UI_GERENTE.md](docs/UI_GERENTE.md) - Sección Estructura
+- **¿Cómo se ve el dashboard del gerente?** → [FRONTEND_UI_GERENTE.md](docs/FRONTEND_UI_GERENTE.md) - Mockups ASCII
+- **¿Qué componentes Vue3 hay?** → [FRONTEND_UI_GERENTE.md](docs/FRONTEND_UI_GERENTE.md) - Sección Estructura
 - **¿Cuál es el flujo de una venta?** → [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) - Sección 3
 - **¿Qué hace cada rol?** → [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) - Sección 1
 - **¿Cómo manejo situaciones especiales?** → [FLUJO_OPERACIONAL.md](docs/FLUJO_OPERACIONAL.md) - Sección 4

@@ -8,6 +8,98 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [0.2] - 2026-04-12
+
+### Agregado (Added)
+- `comerciales-backend/docker-compose.yml` — orquestación completa con 6 servicios (PostgreSQL, Redis, API, Worker, Beat, Flower)
+- `comerciales-backend/.env` — variables de entorno para desarrollo local
+- `docs/SPRINT0_BACKEND_SETUP.md` — documentación completa del setup Docker: archivos creados, problemas encontrados, soluciones, validación final, comandos de referencia
+- `docs/BACKEND_PROXIMOS_PASOS.md` — hoja de ruta técnica: 5 pasos priorizados para optimizar el desarrollo backend (auth JWT, tests, CI, seed, seguridad .env)
+
+### Cambios (Changed)
+- `alembic/versions/1c293d396139_initial.py` — fix bug SQLAlchemy 2.x: reemplazado `sa.Enum(..., create_type=False)` por `postgresql.ENUM(name=..., create_type=False)` en las 7 columnas enum de la migración inicial
+- `INDICE_DOCUMENTACION.md` — referencias actualizadas, convención de nombres aplicada, nuevos docs agregados
+- Convención de nombres aplicada: todos los docs de backend llevan prefijo `BACKEND_`, frontend llevan `FRONTEND_`
+  - `MODELO_DATOS.md` → `BACKEND_MODELO_DATOS.md`
+  - `GCP_SETUP_COMPLETADO.md` → `BACKEND_GCP_SETUP_COMPLETADO.md`
+  - `INFRAESTRUCTURA_ECONOMICA.md` → `BACKEND_INFRAESTRUCTURA_ECONOMICA.md`
+  - `SETUP_GCP_VSCODE.md` → `BACKEND_SETUP_GCP_VSCODE.md`
+  - `DIAGRAMA_FLUJO_INFRA.md` → `BACKEND_DIAGRAMA_FLUJO_INFRA.md`
+  - `ESTRATEGIA_HIBRIDA.md` → `BACKEND_ESTRATEGIA_HIBRIDA.md`
+  - `UI_GERENTE.md` → `FRONTEND_UI_GERENTE.md`
+
+### Bugs Arreglados (Fixed)
+- Migración Alembic fallaba con `psycopg2.errors.DuplicateObject: type already exists` al levantar la DB por primera vez. Causa: SQLAlchemy 2.x ignora `create_type=False` en `sa.Enum` con valores posicionales durante el evento `_on_table_create`. Fix: usar `postgresql.ENUM(name=..., create_type=False)`.
+
+### Infraestructura
+- WSL2 kernel instalado en máquina de desarrollo (`wsl --update`)
+- Docker Desktop 29.3.1 operativo con backend WSL2
+
+---
+
+## [0.3] - 2026-04-12
+
+### Convención de nombres — Documentación técnica
+
+Establecida la convención de prefijos para identificar el dominio de cada documento técnico:
+
+| Prefijo | Dominio | Ejemplo |
+|---------|---------|---------|
+| `BACKEND_` | Documentos técnicos de backend | `BACKEND_MODELO_DATOS.md` |
+| `FRONTEND_` | Documentos técnicos de frontend | `FRONTEND_UI_GERENTE.md` |
+| _(sin prefijo)_ | Documentos generales o de operaciones | `ARQUITECTURA.md`, `FLUJO_OPERACIONAL.md` |
+
+### Cambios (Changed) — Renombrado de documentos existentes
+
+Aplicada la convención retroactivamente con `git mv` (historial preservado):
+
+| Nombre anterior | Nombre nuevo |
+|-----------------|--------------|
+| `docs/MODELO_DATOS.md` | `docs/BACKEND_MODELO_DATOS.md` |
+| `docs/GCP_SETUP_COMPLETADO.md` | `docs/BACKEND_GCP_SETUP_COMPLETADO.md` |
+| `docs/INFRAESTRUCTURA_ECONOMICA.md` | `docs/BACKEND_INFRAESTRUCTURA_ECONOMICA.md` |
+| `docs/SETUP_GCP_VSCODE.md` | `docs/BACKEND_SETUP_GCP_VSCODE.md` |
+| `docs/DIAGRAMA_FLUJO_INFRA.md` | `docs/BACKEND_DIAGRAMA_FLUJO_INFRA.md` |
+| `docs/ESTRATEGIA_HIBRIDA.md` | `docs/BACKEND_ESTRATEGIA_HIBRIDA.md` |
+| `docs/UI_GERENTE.md` | `docs/FRONTEND_UI_GERENTE.md` |
+
+### Agregado (Added) — Registro central de variables
+
+Creada carpeta `variables/` con los registros de todas las variables de entorno del proyecto,
+usando prefijos únicos por dominio para identificación rápida:
+
+**`variables/BKND_VARIABLES.env`** — Backend (16 variables, prefijo `BKND_`)
+
+| Grupo | Variables |
+|-------|-----------|
+| App | `BKND_APP_NAME`, `BKND_API_KEY` |
+| Base de datos | `BKND_DATABASE_URL` |
+| Redis / Celery | `BKND_REDIS_URL` |
+| SMTP | `BKND_SMTP_HOST`, `BKND_SMTP_PORT`, `BKND_SMTP_USER`, `BKND_SMTP_PASSWORD`, `BKND_SMTP_FROM` |
+| Alertas | `BKND_EMAIL_GERENCIA`, `BKND_EMAIL_ADMIN`, `BKND_EMAIL_SUPERVISOR`, `BKND_ALERTA_VENTA_ALTA_CLP` |
+| AI | `BKND_MISTRAL_API_KEY`, `BKND_GOOGLE_API_KEY`, `BKND_OPENAI_API_KEY` |
+
+**`variables/FRNT_VARIABLES.env`** — Frontend (6 variables, prefijo `FRNT_`)
+
+| Grupo | Variables |
+|-------|-----------|
+| API / Backend | `FRNT_API_BASE_URL`, `FRNT_WS_URL` |
+| App | `FRNT_APP_TITLE`, `FRNT_APP_VERSION` |
+| Feature Flags | `FRNT_ENABLE_ANALYTICS`, `FRNT_ENABLE_MOCK_DATA` |
+
+Cada archivo incluye:
+- Descripción de cada variable
+- Ejemplos de valor para dev local, staging y producción
+- Indicador de si la variable es requerida u opcional
+- Tabla de correspondencia entre nombre `BKND_`/`FRNT_` y nombre real en `.env`
+
+### Cambios (Changed) — INDICE_DOCUMENTACION.md
+- Agregada sección "Registro Central de Variables" con enlaces a ambos archivos
+- Actualizadas todas las referencias a los documentos renombrados
+- Actualizado onboarding de Backend Dev y Frontend Dev con nuevas rutas
+
+---
+
 ## [0.1] - 2026-04-05
 
 ### Agregado (Added)
