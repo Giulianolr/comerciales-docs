@@ -71,6 +71,13 @@
 |---------|---------|-------------|-----------|
 | [variables/BKND_VARIABLES.env](variables/BKND_VARIABLES.env) | `BKND_` | comerciales-backend | App, DB, Redis, SMTP, Alertas, AI (16 vars) |
 | [variables/FRNT_VARIABLES.env](variables/FRNT_VARIABLES.env) | `FRNT_` | comerciales-frontend | API URL, WS, App config, Feature flags (6 vars) |
+| [variables/PROVISIONAL_DB_VARIABLES.md](variables/PROVISIONAL_DB_VARIABLES.md) | — | Análisis UI | Gap analysis UI vs backend: 23 variables faltantes, 5 tablas nuevas |
+
+### 🗄️ Modelo Relacional y ERD
+
+| Documento | Contenido |
+|-----------|-----------|
+| [BACKEND_ERD_MODELO_RELACIONAL.md](docs/BACKEND_ERD_MODELO_RELACIONAL.md) | ERD Mermaid completo + DDL PostgreSQL de las 16 tablas del sistema |
 
 ### 📁 Carpetas de Documentación (Por llenar)
 
@@ -100,6 +107,8 @@
 - **¿Cuál es el schema de DB?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 2
 - **¿Qué tablas existen?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 3
 - **¿Cómo se auditan los datos?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 11
+- **¿Cuál es el ERD completo actualizado?** → [BACKEND_ERD_MODELO_RELACIONAL.md](docs/BACKEND_ERD_MODELO_RELACIONAL.md)
+- **¿Qué le falta al backend vs el frontend?** → [variables/PROVISIONAL_DB_VARIABLES.md](variables/PROVISIONAL_DB_VARIABLES.md)
 
 ### Operaciones & UX
 - **¿Cómo se ve el dashboard del gerente?** → [FRONTEND_UI_GERENTE.md](docs/FRONTEND_UI_GERENTE.md) - Mockups ASCII
