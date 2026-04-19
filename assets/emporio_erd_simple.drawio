@@ -1,48 +1,165 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" version="21.0.0" type="device">
+<mxfile host="app.diagrams.net">
   <diagram id="erd_simple" name="ERD Tablas Emporio Esperanza">
-    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="420" math="0" shadow="0">
+    <mxGraphModel dx="1484" dy="963" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="420" math="0" shadow="0">
       <root>
-    <mxCell id="0" />
-    <mxCell id="1" parent="0" />
-    <mxCell id="t_config" value="config 🆕" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" vertex="1" parent="1"><mxGeometry x="20" y="30" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_users" value="users ✏️" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" vertex="1" parent="1"><mxGeometry x="20" y="90" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_stations" value="stations ✏️" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" vertex="1" parent="1"><mxGeometry x="20" y="150" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_cierre_caja" value="cierre_caja 🆕" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" vertex="1" parent="1"><mxGeometry x="20" y="210" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_categories" value="categories" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" vertex="1" parent="1"><mxGeometry x="300" y="30" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_products" value="products ✏️" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" vertex="1" parent="1"><mxGeometry x="300" y="90" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_preboletas" value="preboletas" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" vertex="1" parent="1"><mxGeometry x="300" y="150" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_sales" value="sales ✏️" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" vertex="1" parent="1"><mxGeometry x="300" y="210" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_daily_reports" value="daily_reports ✏️" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" vertex="1" parent="1"><mxGeometry x="300" y="270" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_proveedores" value="proveedores 🆕" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" vertex="1" parent="1"><mxGeometry x="580" y="30" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_preboleta_items" value="preboleta_items" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" vertex="1" parent="1"><mxGeometry x="580" y="90" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_sale_items" value="sale_items" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" vertex="1" parent="1"><mxGeometry x="580" y="150" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_daily_report_stations" value="daily_report_stations 🆕" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" vertex="1" parent="1"><mxGeometry x="580" y="210" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_preboleta_audits" value="preboleta_audits" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" vertex="1" parent="1"><mxGeometry x="580" y="270" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_facturas_proveedor" value="facturas_proveedor 🆕" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" vertex="1" parent="1"><mxGeometry x="860" y="30" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="t_dte_transactions" value="dte_transactions" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" vertex="1" parent="1"><mxGeometry x="860" y="90" width="200" height="40" as="geometry"/></mxCell>
-    <mxCell id="c10" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_categories" target="t_products" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c11" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_proveedores" target="t_products" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c12" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_proveedores" target="t_facturas_proveedor" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c13" value="operador" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_users" target="t_stations" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c14" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_users" target="t_preboletas" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c15" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_users" target="t_sales" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c16" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_users" target="t_cierre_caja" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c17" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_stations" target="t_preboletas" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c18" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_stations" target="t_sales" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c19" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_stations" target="t_cierre_caja" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c20" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_stations" target="t_daily_report_stations" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c21" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_preboletas" target="t_preboleta_items" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c22" value="1 : 1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_preboletas" target="t_sales" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c23" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_products" target="t_preboleta_items" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c24" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_products" target="t_sale_items" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c25" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_sales" target="t_sale_items" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c26" value="1 : 1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_sales" target="t_dte_transactions" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c27" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" edge="1" source="t_daily_reports" target="t_daily_report_stations" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
-    <mxCell id="c28" value="LEYENDA" style="text;html=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="20" y="340" width="120" height="28" as="geometry"/></mxCell>
-    <mxCell id="c29" value="🆕 Tabla nueva" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1"><mxGeometry x="20" y="374" width="210" height="28" as="geometry"/></mxCell>
-    <mxCell id="c30" value="✏️ Tabla modificada" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="240" y="374" width="210" height="28" as="geometry"/></mxCell>
-    <mxCell id="c31" value="✅ Sin cambios" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" vertex="1" parent="1"><mxGeometry x="460" y="374" width="210" height="28" as="geometry"/></mxCell>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t_config" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" value="config 🆕" vertex="1">
+          <mxGeometry height="40" width="200" x="-80.05" y="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="t_users" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" value="users ✏️" vertex="1">
+          <mxGeometry height="40" width="200" x="-85.05" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t_cierre_caja" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" value="cierre_caja 🆕" vertex="1">
+          <mxGeometry height="40" width="200" x="-85.05" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="t_categories" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" value="categories" vertex="1">
+          <mxGeometry height="40" width="200" x="310" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="t_products" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" value="products ✏️" vertex="1">
+          <mxGeometry height="40" width="200" x="310" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="t_preboletas" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" value="preboletas" vertex="1">
+          <mxGeometry height="40" width="200" x="310" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="t_sales" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" value="sales ✏️" vertex="1">
+          <mxGeometry height="40" width="200" x="310" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="t_daily_reports" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" value="daily_reports ✏️" vertex="1">
+          <mxGeometry height="40" width="200" x="310" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="t_proveedores" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" value="proveedores 🆕" vertex="1">
+          <mxGeometry height="40" width="200" x="710" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t_preboleta_items" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" value="preboleta_items" vertex="1">
+          <mxGeometry height="40" width="200" x="710" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t_sale_items" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" value="sale_items" vertex="1">
+          <mxGeometry height="40" width="200" x="710" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="t_daily_report_stations" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" value="daily_report_stations 🆕" vertex="1">
+          <mxGeometry height="40" width="200" x="1000" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="t_preboleta_audits" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" value="preboleta_audits" vertex="1">
+          <mxGeometry height="40" width="200" x="710" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="t_facturas_proveedor" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=8;" value="facturas_proveedor 🆕" vertex="1">
+          <mxGeometry height="40" width="200" x="990" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="t_dte_transactions" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;arcSize=8;" value="dte_transactions" vertex="1">
+          <mxGeometry height="40" width="200" x="990" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" edge="1" parent="1" source="t_categories" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_products" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" edge="1" parent="1" source="t_proveedores" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_products" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" edge="1" parent="1" source="t_proveedores" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_facturas_proveedor" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" edge="1" parent="1" source="t_users" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_stations" value="operador">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" edge="1" parent="1" source="t_users" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_preboletas" value="1 : N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="60" />
+              <mxPoint x="190" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c15" edge="1" parent="1" source="t_users" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_sales" value="1 : N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="60" />
+              <mxPoint x="240" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c16" edge="1" parent="1" source="t_stations" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_cierre_caja" value="1 : N">
+          <mxGeometry relative="1" x="0.0503" y="70" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c17" edge="1" parent="1" source="t_stations" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_preboletas" value="1 : N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="160" />
+              <mxPoint x="310" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c18" edge="1" parent="1" source="t_stations" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_sales" value="1 : N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="180" />
+              <mxPoint x="215" y="180" />
+              <mxPoint x="215" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c19" edge="1" parent="1" source="t_stations" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_cierre_caja" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c20" edge="1" parent="1" source="t_stations" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_daily_report_stations" value="1 : N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="225" y="140" />
+              <mxPoint x="547" y="140" />
+              <mxPoint x="547" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c21" edge="1" parent="1" source="t_preboletas" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_preboleta_items" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c22" edge="1" parent="1" source="t_preboletas" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_sales" value="1 : 1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c23" edge="1" parent="1" source="t_products" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_preboleta_items" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c24" edge="1" parent="1" source="t_products" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_sale_items" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c25" edge="1" parent="1" source="t_sales" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_sale_items" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c26" edge="1" parent="1" source="t_sales" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_dte_transactions" value="1 : 1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="220" />
+              <mxPoint x="950" y="220" />
+              <mxPoint x="950" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c27" edge="1" parent="1" source="t_daily_reports" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_daily_report_stations" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c28" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=12;fontStyle=1;" value="LEYENDA" vertex="1">
+          <mxGeometry height="28" width="120" x="20" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="🆕 Tabla nueva" vertex="1">
+          <mxGeometry height="28" width="210" x="20" y="374" as="geometry" />
+        </mxCell>
+        <mxCell id="c30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="✏️ Tabla modificada" vertex="1">
+          <mxGeometry height="28" width="210" x="240" y="374" as="geometry" />
+        </mxCell>
+        <mxCell id="c31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" value="✅ Sin cambios" vertex="1">
+          <mxGeometry height="28" width="210" x="460" y="374" as="geometry" />
+        </mxCell>
+        <mxCell id="igVT3Ios1w8YtUqqH73o-1" edge="1" parent="1" source="t_users" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=open;startArrow=ERmandOne;startFill=0;endFill=0;strokeColor=#6c8ebf;fontColor=#444;fontSize=10;html=1;" target="t_stations" value="">
+          <mxGeometry relative="1" x="0.0503" y="70" as="geometry">
+            <mxPoint x="1" as="offset" />
+            <mxPoint x="114.95" y="120" as="sourcePoint" />
+            <mxPoint x="-85.05" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_stations" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=8;" value="stations ✏️" vertex="1">
+          <mxGeometry height="40" width="200" x="-80.05" y="150" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
