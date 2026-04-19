@@ -17,9 +17,10 @@
 1. [README.md](README.md) — Context (10 min)
 2. [ARQUITECTURA.md](docs/ARQUITECTURA.md) — Full architecture (30 min)
 3. [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) — Database schema (20 min)
-4. [SPRINT0_BACKEND_SETUP.md](docs/SPRINT0_BACKEND_SETUP.md) — Levantar entorno local Docker (10 min)
-5. [BACKEND_PROXIMOS_PASOS.md](docs/BACKEND_PROXIMOS_PASOS.md) — Qué hacer ahora (5 min)
-6. [Plan detallado](/plans/swirling-knitting-hickey.md) — Sprints (15 min)
+4. [BACKEND_MANUAL_BASE_DE_DATOS.md](docs/BACKEND_MANUAL_BASE_DE_DATOS.md) — Manual relaciones de tablas (25 min)
+5. [SPRINT0_BACKEND_SETUP.md](docs/SPRINT0_BACKEND_SETUP.md) — Levantar entorno local Docker (10 min)
+6. [BACKEND_PROXIMOS_PASOS.md](docs/BACKEND_PROXIMOS_PASOS.md) — Qué hacer ahora (5 min)
+7. [Plan detallado](/plans/swirling-knitting-hickey.md) — Sprints (15 min)
 
 ### Si eres **Developer Frontend (Jonathan)**
 1. [README.md](README.md) — Context (10 min)
@@ -78,6 +79,7 @@
 | Documento | Contenido |
 |-----------|-----------|
 | [BACKEND_ERD_MODELO_RELACIONAL.md](docs/BACKEND_ERD_MODELO_RELACIONAL.md) | ERD Mermaid completo + DDL PostgreSQL de las 16 tablas del sistema |
+| [BACKEND_MANUAL_BASE_DE_DATOS.md](docs/BACKEND_MANUAL_BASE_DE_DATOS.md) | Manual de usuario: módulos, relaciones, reglas de negocio, queries, glosario |
 
 ### 📁 Carpetas de Documentación (Por llenar)
 
@@ -108,6 +110,7 @@
 - **¿Qué tablas existen?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 3
 - **¿Cómo se auditan los datos?** → [BACKEND_MODELO_DATOS.md](docs/BACKEND_MODELO_DATOS.md) - Sección 11
 - **¿Cuál es el ERD completo actualizado?** → [BACKEND_ERD_MODELO_RELACIONAL.md](docs/BACKEND_ERD_MODELO_RELACIONAL.md)
+- **¿Cómo se relacionan las tablas entre sí?** → [BACKEND_MANUAL_BASE_DE_DATOS.md](docs/BACKEND_MANUAL_BASE_DE_DATOS.md) - Sección 10
 - **¿Qué le falta al backend vs el frontend?** → [variables/PROVISIONAL_DB_VARIABLES.md](variables/PROVISIONAL_DB_VARIABLES.md)
 
 ### Operaciones & UX
@@ -256,6 +259,7 @@ Operarios/Capacitador
 - [ ] README.md
 - [ ] ARQUITECTURA.md (completo)
 - [ ] MODELO_DATOS.md (completo)
+- [ ] BACKEND_MANUAL_BASE_DE_DATOS.md (relaciones y queries)
 - [ ] Plan detallado (Sprints 0-2)
 
 ### Para Frontend Dev:
