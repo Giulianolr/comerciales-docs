@@ -8,6 +8,79 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [0.4] - 2026-04-19
+
+### Agregado (Added)
+
+#### Análisis y Documentación
+- `variables/PROVISIONAL_DB_VARIABLES.md` — análisis completo UI → Backend: 10 vistas del frontend analizadas, 23 variables faltantes identificadas, gap analysis priorizado (🔴 crítico → 🔵 bajo), diagrama de dependencias entre variables
+- `docs/BACKEND_ERD_MODELO_RELACIONAL.md` — modelo relacional completo: ERD en Mermaid con las 16 tablas del sistema, DDL PostgreSQL completo con constraints e índices, queries frecuentes del sistema, orden de migración Alembic
+
+#### Diagramas draw.io
+- `assets/emporio_erd.drawio` — ERD completo exportado en formato draw.io con las 16 tablas, campos tipados, iconos PK/FK/UK/NEW y relaciones con notación crow's foot
+- `assets/emporio_erd_simple.drawio` — diagrama simplificado con solo los títulos de las 16 tablas y sus relaciones, código de color por estado (nueva/modificada/sin cambios)
+
+#### Modelos SQLAlchemy nuevos
+- `app/models/config.py` — modelo `Config` (key-value para configuración del negocio)
+- `app/models/proveedor.py` — modelos `Proveedor` y `FacturaProveedor` con ENUMs `EstadoPagoFP` y `EstadoRecepcionFP`
+- `app/models/cierre.py` — modelo `CierreCaja` con constraint UNIQUE (date, station_id)
+
+#### Migración de base de datos
+- `alembic/versions/b4e7f2a91d30_full_schema_v2.py` — migración completa que implementa el schema v2:
+  - 4 ENUMs nuevos: `station_estado`, `sale_estado`, `estado_pago_fp`, `estado_rec_fp`
+  - 5 tablas nuevas: `config`, `proveedores`, `facturas_proveedor`, `cierre_caja`, `daily_report_stations`
+  - Campos nuevos en 5 tablas existentes (ver sección Cambios)
+  - Constraints de integridad: `chk_sales_total`, `chk_stock_umbrales`, `chk_fp_total`
+  - Índices de rendimiento en todas las FK y campos de búsqueda frecuente
+
+#### Scripts
+- `scripts/seed.py` — seed inicial: 5 usuarios, 4 estaciones, 6 categorías, 4 proveedores, 8 productos con credenciales de prueba documentadas
+- `scripts/seed_test_data.py` — seed de historial de pruebas: 30 días de operación realista
+  - 35 productos (17 por KG + 18 por unidad), 6 categorías completas
+  - 1.063 ventas con pre-boleta, items y DTE por cada transacción
+  - 3.773 items de venta con mezcla de productos KG (cantidades decimales) y UN
+  - 30 cierres de caja diarios con arqueo (fondo inicial + monto contado + diferencia)
+  - 31 reportes diarios con desglose por método de pago (efectivo/débito/crédito/transferencia)
+  - 120 registros de desglose por estación (4 estaciones × 30 días)
+  - 5 facturas de proveedores en distintos estados (pendiente/pagada/vencida)
+  - Total facturado generado: $18.518.840 CLP
+- `scripts/generate_erd.py` — generador Python del diagrama draw.io a partir de la definición de tablas y relaciones
+
+### Cambios (Changed)
+
+#### Modelos SQLAlchemy modificados
+- `app/models/user.py` — agregado campo `ultimo_login_at: TIMESTAMPTZ`, relaciones hacia `CierreCaja` y `Station` (operador_actual)
+- `app/models/station.py` — agregado `StationEstado` ENUM (`activa/inactiva/error`), campos `estado`, `operador_actual_id` FK → users, `ultimo_evento_at`; relaciones hacia `CierreCaja` y `DailyReportStation`
+- `app/models/product.py` — agregados `stock_critico: NUMERIC(10,3)` y `proveedor_id` FK → proveedores; relación hacia `Proveedor`
+- `app/models/sale.py` — agregado `SaleEstado` ENUM (`completada/anulada/pendiente/error`), campos `subtotal_clp`, `iva_clp`, `estado`
+- `app/models/report.py` — campos nuevos en `DailyReport`: `total_efectivo_clp`, `total_debito_clp`, `total_credito_clp`, `total_transferencia_clp`, `hora_inicio`, `hora_fin`, `turno_tipo`, `observaciones`; agregado modelo `DailyReportStation`
+- `app/models/__init__.py` — registrados todos los modelos nuevos y ENUMs exportados para Alembic
+
+#### Documentación
+- `INDICE_DOCUMENTACION.md` — agregadas secciones "Modelo Relacional y ERD" y "Registro Central de Variables" con enlaces a los nuevos documentos
+
+### Base de Datos — Estado Final
+
+| Tabla | Estado | Descripción |
+|-------|--------|-------------|
+| `config` | 🆕 Nueva | 5 registros de configuración (IVA=19%, nombre negocio, etc.) |
+| `users` | ✏️ Modificada | 5 usuarios con roles distintos |
+| `categories` | ✅ Sin cambios | 6 categorías |
+| `proveedores` | 🆕 Nueva | 4 proveedores |
+| `products` | ✏️ Modificada | 35 productos (17 KG · 18 UN) |
+| `stations` | ✏️ Modificada | 4 estaciones (1 caja + 3 balanzas) |
+| `preboletas` | ✅ Sin cambios | 1.063 pre-boletas |
+| `preboleta_items` | ✅ Sin cambios | ~3.700 items |
+| `sales` | ✏️ Modificada | 1.063 ventas, $18.518.840 CLP total |
+| `sale_items` | ✅ Sin cambios | 3.773 items de venta |
+| `dte_transactions` | ✅ Sin cambios | 1.063 boletas electrónicas (estado: aceptado) |
+| `daily_reports` | ✏️ Modificada | 31 reportes diarios |
+| `daily_report_stations` | 🆕 Nueva | 120 registros por estación |
+| `cierre_caja` | 🆕 Nueva | 30 arqueos de caja |
+| `facturas_proveedor` | 🆕 Nueva | 5 facturas (pendiente/pagada/vencida) |
+
+---
+
 ## [0.2] - 2026-04-12
 
 ### Agregado (Added)
