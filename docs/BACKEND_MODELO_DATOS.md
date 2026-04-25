@@ -2,8 +2,9 @@
 ## Sistema de Inventario Dinámico - Locales Comerciales Chile
 
 **Para:** Equipo técnico + PM  
-**Versión:** 0.1-MVP  
-**Base de datos:** PostgreSQL 15 (Cloud SQL)  
+**Versión:** 0.2-Sprint0  
+**Base de datos:** PostgreSQL 15 (VPS Hetzner Docker)  
+**Aislamiento Multi-Tenant:** Row-Level Security (RLS) por store_id  
 
 ---
 
@@ -29,32 +30,32 @@
 │         ▲                                     │                              │
 │         │ (ADMIN, GERENTE, CAJERO, OPERADOR) │                              │
 │         │                                     │                              │
-│  ┌──────┴──────────────────────────────────────┴───────┐                    │
-│  │                                                      │                    │
-│  ┌──────────────────┐         ┌──────────────────┐     │                    │
-│  │   CATEGORIES     │         │   PRODUCTS       │     │                    │
-│  ├──────────────────┤         ├──────────────────┤     │                    │
-│  │ id (PK)          │◄────────│ id (PK)          │     │                    │
-│  │ store_id (FK)    │         │ store_id (FK)    │     │                    │
-│  │ name             │         │ barcode (UNIQUE) │     │                    │
-│  │ description      │         │ name             │     │                    │
-│  │ created_at       │         │ category_id (FK) │     │                    │
-│  └──────────────────┘         │ unit (kg/unit)   │     │                    │
-│                                │ price            │     │                    │
-│                                │ stock_quantity   │     │                    │
-│                                │ min_stock        │     │                    │
-│                                │ created_at       │     │                    │
-│                                │ updated_at       │     │                    │
-│                                └──────────────────┘     │                    │
-│                                       ▲                 │                    │
-│                                       │                 │                    │
-│  ┌──────────────────┐     ┌───────────┴───────────┐    │                    │
-│  │   STATIONS       │     │  ORDER PROCESSING     │    │                    │
-│  ├──────────────────┤     ├───────────────────────┤    │                    │
-│  │ id (PK)          │     │                       │    │                    │
-│  │ store_id (FK)    │─┐   │                       │    │                    │
-│  │ number (1-4)     │ │   │                       │    │                    │
-│  │ status           │ │   │                       │    │                    │
+│  ┌──────┴──────────────────────────────────────┴─────┐                    │
+│  │                                                   │                    │
+│  ┌──────────────────┐          ┌──────────────────┐  │                    │
+│  │   CATEGORIES     │          │   PRODUCTS       │  │                    │
+│  ├──────────────────┤          ├──────────────────┤  │                    │
+│  │ id (PK)          │◄──────── │ id (PK)          │  │                    │
+│  │ store_id (FK)    │          │ store_id (FK)    │  │                    │
+│  │ name             │          │ barcode (UNIQUE) │  │                    │
+│  │ description      │          │ name             │  │                    │
+│  │ created_at       │          │ category_id (FK) │  │                    │
+│  └──────────────────┘          │ unit (kg/unit)   │  │                    │
+│                                │ price            │  │                    │
+│                                │ stock_quantity   │  │                    │
+│                                │ min_stock        │  │                    │
+│                                │ created_at       │  │                    │
+│                                │ updated_at       │  │                    │
+│                                └──────────────────┘  │                    │
+│                                       ▲              │                    │
+│                                       │              │                    │
+│  ┌──────────────────┐     ┌───────────┴──────────┐   │                    │
+│  │   STATIONS       │     │  ORDER PROCESSING    │   │                    │
+│  ├──────────────────┤     ├──────────────────────┤   │                    │
+│  │ id (PK)          │     │                      │   │                    │
+│  │ store_id (FK)    │─┐   │                      │   │                    │
+│  │ number (1-4)     │ │   │                      │   │                    │
+│  │ status           │ │   │                      │   │                    │
 │  │ current_order_id │ │   │  ┌──────────────────┐│   │                    │
 │  │ created_at       │ │   │  │     ORDERS       ││   │                    │
 │  └──────────────────┘ │   │  ├──────────────────┤│   │                    │
@@ -62,14 +63,14 @@
 │                       └─► │  │ uuid (UNIQUE)    ││   │                    │
 │                           │  │ store_id (FK)    ││   │                    │
 │                           │  │ station_id (FK)  ││   │                    │
-│                           │  │ status (PENDING,││   │                    │
+│                           │  │ status (PENDING, ││   │                    │
 │                           │  │    CONFIRMED)    ││   │                    │
 │                           │  │ total            ││   │                    │
 │                           │  │ created_at       ││   │                    │
 │                           │  └──────────────────┘│   │                    │
-│                           │         │             │    │                    │
-│                           │  ┌──────▼──────────┐│   │                    │
-│                           │  │  ORDER_ITEMS    ││   │                    │
+│                           │         │            │   │                    │
+│                           │  ┌──────▼─────────-─┐│   │                    │
+│                           │  │  ORDER_ITEMS     ││   │                    │
 │                           │  ├──────────────────┤│   │                    │
 │                           │  │ id (PK)          ││   │                    │
 │                           │  │ order_id (FK)    ││   │                    │
@@ -448,10 +449,26 @@ $$ LANGUAGE plpgsql;
 - ✅ **Triggers:** Auditoría automática + updated_at
 - ✅ **ACID:** PostgreSQL transacciones en operaciones críticas
 
-### Seguridad
+### Seguridad Multi-Tenant
+- ✅ **Isolation:** Cada tabla tiene `store_id`, RLS asegura que un local NUNCA vea datos de otro
+- ✅ **Row-level security (RLS):** PostgreSQL policy enforced, no confiamos en aplicación
 - ✅ **Passwords:** Nunca en plaintext, solo hash bcrypt
-- ✅ **Audit Log:** Inmutable (INSERT only, nunca UPDATE/DELETE)
-- ✅ **Row-level security:** Para multi-tenant (future)
+- ✅ **Audit Log:** Inmutable (INSERT only, nunca UPDATE/DELETE), filtrado por store_id vía RLS
+- ✅ **JWT Scope:** Token incluye store_id, se valida en cada request
+
+**Implementación RLS (Sprint 0):**
+```sql
+-- Después de migrations, crear policies
+CREATE POLICY users_isolation ON users USING (store_id = get_current_store_id());
+CREATE POLICY products_isolation ON products USING (store_id = get_current_store_id());
+CREATE POLICY orders_isolation ON orders USING (store_id = get_current_store_id());
+CREATE POLICY transactions_isolation ON transactions USING (store_id = get_current_store_id());
+-- ... (resto de tablas con store_id)
+
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+-- ... (habilitar en todas)
+```
 
 ---
 
@@ -479,5 +496,6 @@ alembic downgrade -1
 
 ---
 
-**Versión:** 0.1  
-**Última actualización:** 5 de abril 2026
+**Versión:** 0.2  
+**Última actualización:** 20 de abril 2026  
+**Cambios:** Aclaración de RLS multi-tenant, PostgreSQL on VPS, garantías de aislamiento de datos

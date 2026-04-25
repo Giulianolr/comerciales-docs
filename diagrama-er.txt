@@ -1,0 +1,110 @@
+erDiagram
+    STORES ||--o{ USERS : has
+    STORES ||--o{ CATEGORIES : has
+    STORES ||--o{ PRODUCTS : has
+    STORES ||--o{ STATIONS : has
+    CATEGORIES ||--o{ PRODUCTS : contains
+    STATIONS ||--o{ ORDERS : generates
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : listed_in
+    ORDERS ||--|| TRANSACTIONS : generates
+    USERS ||--o{ TRANSACTIONS : registers
+    TRANSACTIONS ||--|| BOLETAS : produces
+    PRODUCTS ||--o{ INVENTORY_MOVEMENTS : tracks
+    TRANSACTIONS ||--o{ INVENTORY_MOVEMENTS : triggers
+    USERS ||--o{ INVENTORY_MOVEMENTS : performs
+    USERS ||--o{ AUDIT_LOGS : generates
+
+    STORES {
+        uuid id PK
+        string name UK
+        string address
+        timestamp created_at
+    }
+
+    USERS {
+        uuid id PK
+        uuid store_id FK
+        string email UK
+        string role
+        boolean active
+    }
+
+    CATEGORIES {
+        uuid id PK
+        uuid store_id FK
+        string name
+        text description
+    }
+
+    PRODUCTS {
+        uuid id PK
+        uuid store_id FK
+        uuid category_id FK
+        string barcode UK
+        string name
+        decimal price
+        int stock
+    }
+
+    STATIONS {
+        uuid id PK
+        uuid store_id FK
+        string device_id UK
+        string model
+        boolean active
+    }
+
+    ORDERS {
+        uuid id PK
+        uuid station_id FK
+        string qr_uuid UK
+        decimal total
+        string status
+        timestamp created_at
+    }
+
+    ORDER_ITEMS {
+        uuid id PK
+        uuid order_id FK
+        uuid product_id FK
+        int quantity
+        decimal unit_price
+    }
+
+    TRANSACTIONS {
+        uuid id PK
+        uuid order_id FK "UNIQUE"
+        uuid user_id FK
+        decimal amount
+        string payment_method
+        string status
+        timestamp processed_at
+    }
+
+    BOLETAS {
+        uuid id PK
+        uuid transaction_id FK "UNIQUE"
+        string folio
+        string xml_path
+        timestamp issued_at
+    }
+
+    INVENTORY_MOVEMENTS {
+        uuid id PK
+        uuid product_id FK
+        uuid transaction_id FK "nullable"
+        uuid user_id FK
+        string movement_type
+        int quantity_delta
+        timestamp recorded_at
+    }
+
+    AUDIT_LOGS {
+        uuid id PK
+        uuid user_id FK
+        string entity_type
+        string action
+        text changes
+        timestamp occurred_at
+    }

@@ -2,8 +2,9 @@
 ## Sistema de Inventario Dinámico - Locales Comerciales Chile
 
 **Para:** Equipo técnico (Allan, Jonathan) + PM  
-**Versión:** 0.1-MVP  
-**Stack:** Python + Vue + PostgreSQL + GCP  
+**Versión:** 0.2-Sprint0  
+**Stack:** Python + Vue + PostgreSQL + VPS (Hetzner)  
+**Nota:** Arquitectura preparada para migración a GCP en futuro  
 
 ---
 
@@ -140,7 +141,7 @@ FLUJOS DE DATOS:
                                   │
                     ┌─────────────▼─────────────┐
                     │   PostgreSQL + Redis      │
-                    │   (Cloud SQL + Memorystore)
+                    │   (VPS Hetzner)           │
                     │                           │
                     └─────────────┬─────────────┘
                                   │
@@ -149,32 +150,36 @@ FLUJOS DE DATOS:
 ├─────────────────────────────────┼─────────────────────────────────┤
 │                                 │                                 │
 │  ┌───────────────────────────────▼───────────────────────────┐  │
-│  │  PostgreSQL (Cloud SQL)                                   │  │
+│  │  PostgreSQL (VPS Hetzner - Docker)                        │  │
 │  ├───────────────────────────────────────────────────────────┤  │
 │  │  • Tablas: products, stations, orders, transactions,      │  │
 │  │           boletas, inventory_movements, audit_logs, users │  │
+│  │  • Multi-tenant: Row-Level Security (RLS) por store_id    │  │
 │  │  • Constraints: FK, NOT NULL, UNIQUE (barcode, UUID)      │  │
 │  │  • Indices: para búsquedas rápidas (barcode, UUID)        │  │
 │  │  • Migraciones: Alembic (versionadas)                     │  │
+│  │  • Backups: Scripts cron a almacenamiento local           │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌───────────────────────────────────────────────────────────┐  │
-│  │  Redis (Memorystore)                                      │  │
+│  │  Redis (VPS Hetzner - Docker)                             │  │
 │  ├───────────────────────────────────────────────────────────┤  │
 │  │  • Pub/Sub: WebSocket broadcast (estaciones ↔ caja)       │  │
 │  │  • Caché: Productos + precios (TTL 1 hora)                │  │
 │  │  • Sessions: Autenticación JWT                            │  │
 │  │  • Queues: Celery (tareas asíncronas)                     │  │
 │  │  • Rate limiting: API endpoints                           │  │
+│  │  • Almacenamiento local con persistencia (RDB/AOF)        │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌───────────────────────────────────────────────────────────┐  │
-│  │  Cloud Storage (GCS)                                      │  │
+│  │  Almacenamiento Local (VPS Hetzner)                       │  │
 │  ├───────────────────────────────────────────────────────────┤  │
-│  │  • XML DTE (boletas SII)                                  │  │
-│  │  • Backups automáticos DB                                 │  │
+│  │  • XML DTE (boletas SII) - volumen local                  │  │
+│  │  • Backups automáticos DB - scripts cron                 │  │
 │  │  • Logs de auditoría exportados                           │  │
-│  │  • Assets de la aplicación                                │  │
+│  │  • Assets de la aplicación (Docker volumes)               │  │
+│  │  • Cola offline: boletas pendientes de sincronizar (JSON) │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                   │
 └───────────────────────────────────────────────────────────────────┘
@@ -408,6 +413,164 @@ FLUJOS DE DATOS:
 
 ---
 
+## 🖥️ Especificaciones de Hardware
+
+### Equipos en el Local
+
+| Equipamiento | Modelo | Especificación | Integración |
+|-------------|--------|-----------------|------------|
+| **Balanza** | Digi SM-110 | Digital, capacidad 30kg, precisión 1g, USB | Scanner barcode auto-conectado |
+| **Scanner** | Scan lux desktop 2D | 2D barcode reader, USB HID, lectura EAN-13 | WebSocket → Backend → Balanza pantalla |
+| **Terminal Pago** | MercadoPago (SDK) | API REST, webhooks pagos, modo offline | Backend Celery task, reintentos async |
+| **Pantalla Cliente** | Monitor/Tablet 10" | HDMI/USB, navegador web o app Vue | Servidor local o tablet con app PWA |
+| **Pantalla Caja** | Monitor 15" | HDMI/USB, navegador web Firefox | Misma app Vue, responsive design |
+
+### Conectividad
+
+- **Red:** Ethernet LAN local (preferible) o WiFi 2.4/5GHz
+- **Internet:** ADSL/Fibra (backup: LTE módem)
+- **Tolerancia:** Si cae internet, sistema continúa en **MODO OFFLINE**
+
+---
+
+## 🔌 Modo Offline (Fallback Sin Conexión Internet)
+
+### Escenario: Caída de Internet durante venta
+
+```
+1. Usuario escanea en balanza
+2. Backend intenta conectar con SII → TIMEOUT (sin internet)
+3. Sistema entra en MODO OFFLINE automáticamente
+
+4. CAJERO CONTINÚA COBRANDO SIN BOLETA SII
+   • Venta se procesa normalmente (caja local)
+   • Inventario actualiza localmente
+   • NO se emite boleta de SII en vivo
+   
+5. BOLETA SE GUARDA EN COLA OFFLINE (tabla: pending_boletas)
+   {
+     "order_id": "ORD-20260405-000142",
+     "items": [...],
+     "total": 10.11,
+     "payment_method": "cash",
+     "status": "pending_emission",
+     "timestamp": "2026-04-05T15:45:23Z"
+   }
+
+6. CUANDO VUELVE INTERNET (dentro de 24 horas típicamente)
+   • Cron job cada 5 minutos intenta emitir boletas pendientes
+   • Sistema reconecta con SII provider
+   • Boletas se emiten retroactivamente
+   • Cliente recibe boleta por email o la imprime después
+   • Auditoría registra: "boleta_emitted_offline_mode"
+```
+
+### Tablas para Offline
+
+```sql
+-- Cola de boletas pendientes de sincronizar
+CREATE TABLE pending_boletas (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    store_id UUID NOT NULL REFERENCES stores(id),
+    order_id UUID NOT NULL REFERENCES orders(id),
+    transaction_id UUID NOT NULL REFERENCES transactions(id),
+    folio_sii_provisional VARCHAR(10),  -- Local, será reemplazado por real
+    status VARCHAR(50) DEFAULT 'pending'  -- pending, synced, failed
+    retry_count INTEGER DEFAULT 0,
+    last_retry_timestamp TIMESTAMP,
+    error_message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    synced_at TIMESTAMP,
+    
+    INDEX (store_id, status),
+    INDEX (created_at)
+);
+
+-- Detección de desconexión
+CREATE TABLE connection_events (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    store_id UUID NOT NULL REFERENCES stores(id),
+    event_type VARCHAR(50) NOT NULL CHECK (event_type IN ('offline', 'online')),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    details JSONB,
+    
+    INDEX (store_id, timestamp DESC)
+);
+```
+
+### Garantías Offline
+
+- ✅ **Inventario local:** Siempre se descuenta (incluso sin internet)
+- ✅ **Auditoría inmutable:** Cada operación registrada localmente
+- ✅ **Integridad financiera:** Transacciones guardadas, boletas emitidas cuando vuelva conexión
+- ✅ **Transparencia:** Operador ve claramente "⚠️ MODO OFFLINE - Boleta pendiente"
+- ✅ **Auto-reintentos:** Celery reintentas cada 5min por 24 horas
+
+---
+
+## 👥 Arquitectura Multi-Tenant con Row-Level Security (RLS)
+
+### Concepto: Un Local ≠ Ve datos de Otro
+
+Aunque toda la data está en PostgreSQL centralizada, cada local solo ve SUS datos.
+
+```
+PROBLEMA:
+  Dueño Local A hizo login → ¿Puede ver ventas de Local B?
+  ❌ NO. Nunca.
+
+SOLUCIÓN: Row-Level Security (RLS) en PostgreSQL
+  • Tabla `stores`: cada local tiene store_id único
+  • Todas las tablas tienen columna `store_id`
+  • PostgreSQL policy: "user can only SELECT rows where store_id = current_user's store_id"
+```
+
+### Implementación RLS
+
+```sql
+-- Contexto: obtener store_id del usuario logueado
+CREATE OR REPLACE FUNCTION get_current_store_id()
+RETURNS UUID AS $$
+BEGIN
+    RETURN current_setting('app.current_store_id')::UUID;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Policy en tabla PRODUCTS
+CREATE POLICY products_isolation ON products
+    USING (store_id = get_current_store_id());
+
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+
+-- Similar para: orders, transactions, inventory_movements, users, etc.
+CREATE POLICY orders_isolation ON orders
+    USING (store_id = get_current_store_id());
+
+CREATE POLICY transactions_isolation ON transactions
+    USING (store_id = get_current_store_id());
+
+-- Backend FastAPI: al autenticar
+def verify_token(token: str) -> dict:
+    payload = jwt.decode(token, SECRET_KEY)
+    user_id = payload["sub"]
+    store_id = payload["store_id"]
+    
+    # Pasar store_id a PostgreSQL
+    connection.execute("SET app.current_store_id = %s", (store_id,))
+    
+    return {"user_id": user_id, "store_id": store_id}
+```
+
+### Garantías Multi-Tenant
+
+- ✅ **Aislamiento de datos:** SQL-level, no application-level
+- ✅ **Escalable:** Un local → 10 locales → 100 locales, misma DB
+- ✅ **Seguro:** Si hacker accede a BD directamente, RLS lo detiene
+- ✅ **Sin cambios de código:** RLS es transparente para la app
+- ✅ **Auditabilidad:** Cada query registra store_id en audit_logs
+
+---
+
 ## 🔐 Matriz de Autenticación & Autorización
 
 ```
@@ -507,17 +670,26 @@ FLUJOS DE DATOS:
 | **Migraciones** | Alembic | Versionable, reversible, documented |
 | **Auditoría** | Tabla audit_logs + Triggers | Inmutable, quién-qué-cuándo |
 
-### Infraestructura — GCP
+### Infraestructura — VPS Hetzner (Con opción de migración a GCP futuro)
 
-| Servicio | Razón |
-|----------|-------|
-| **Cloud Run** | Serverless, escala automática, pay-per-use |
-| **Cloud SQL** | PostgreSQL managed, backups automáticos |
-| **Memorystore (Redis)** | Pub/Sub, caché, sesiones |
-| **Cloud Storage** | XMLs SII, backups, assets |
-| **Secret Manager** | Credenciales seguras |
-| **Cloud Build** | CI/CD, container registry |
-| **Cloud Logging** | Logs centralizados |
+| Componente | Tecnología | Por qué |
+|-----------|-----------|---------|
+| **Hosting** | VPS Hetzner CX31 (2vCPU, 4GB RAM, 40GB SSD) | Costo bajo ($3.60 USD/mes), full control, escalable |
+| **Orquestación** | Docker + Docker Compose | Reproducible, portable, fácil de migrar a GCP |
+| **Base de datos** | PostgreSQL 15 (Docker) | ACID, RLS para multi-tenant, managed backups local |
+| **Caché/Pub-Sub** | Redis (Docker) | WebSocket, Celery queue, persistencia local |
+| **CI/CD** | GitHub Actions + Script deploy | Testing + deploy automático al VPS |
+| **Logs** | ELK Stack (opcional) o archivo local | Centralización sin costo |
+| **Secretos** | Archivo `.env` en servidor (producción: variables seguros) | Alternativa future: GCP Secret Manager |
+| **Backups** | Cron scripts → almacenamiento local | Manual o B2 (cheap object storage) |
+
+**Migración Futura a GCP:**
+- Cloud Run reemplaza Docker
+- Cloud SQL reemplaza PostgreSQL local
+- Memorystore reemplaza Redis local
+- Cloud Storage reemplaza almacenamiento local
+- Secret Manager para credenciales
+- Zero downtime: setup paralelo + DNS switch
 
 ### Herramientas de Apoyo
 
@@ -552,10 +724,11 @@ FLUJOS DE DATOS:
 - **Metabase:** Configuración en horas, SQL queries sin UI custom
 - **Decisión:** Metabase open-source self-hosted (costo ~$0)
 
-### 5. ¿Por qué GCP Cloud Run y no EC2/Kubernetes?
-- **EC2/K8s:** Costo fijo, requiere ops, scaling manual
-- **Cloud Run:** Pay-per-use, scaling automático, no ops
-- **Decisión:** Cloud Run para startup/piloto (costo $75-130/mes vs $300+/mes)
+### 5. ¿Por qué VPS Hetzner ahora y GCP Cloud Run en futuro?
+- **GCP Cloud Run:** Pay-per-use, scaling automático, pero requiere arquitectura específica ($75-130/mes esperado)
+- **VPS Hetzner:** Costo fijo bajo ($3.60/mes), full control, Docker permite migración sin cambios de código
+- **Decisión:** Hetzner VPS para MVP/piloto (máximo $30/mes infra), arquitectura preparada para migración a GCP cuando escale
+- **Beneficio:** Si llegamos a 10 locales y el VPS se satura, migramos a GCP sin re-arquitecturar
 
 ---
 
@@ -563,27 +736,32 @@ FLUJOS DE DATOS:
 
 | Decisión | Pro | Con | Mitigación |
 |----------|-----|-----|------------|
-| **WebSocket en Cloud Run** | Real-time | Conexiones largas = costo | Reconexión automática, fallback HTTP |
-| **Redis en Memorystore** | Pub/Sub escalable | Costo extra ($25-40/mes) | Necesario para WebSocket |
-| **Celery async boletas** | UX rápido | Complejidad (retry, DLQ) | Monitoring + Sentry |
-| **PostgreSQL única DB** | ACID, auditoría | Sin particionamiento | Índices, caché Redis |
-| **SII proveedor externo** | No mantenemos DTE | Dependencia externa | Fallback a modo offline |
+| **WebSocket en VPS** | Real-time, bajo costo | Conexiones largas en servidor | Reconexión automática, fallback HTTP (polling) |
+| **Redis local en Docker** | Pub/Sub escalable, costo cero | Pérdida si reinicia (mitigado: persistencia RDB/AOF) | Almacenamiento persistente activado |
+| **Celery async boletas** | UX rápido, no bloquea venta | Complejidad (retry, dead letter queue) | Monitoring + Sentry, tests exhaustivos |
+| **PostgreSQL única DB** | ACID, auditoría, RLS multi-tenant | Sin particionamiento (escalable hasta 10M registros) | Índices agresivos, caché Redis, particionamiento futuro |
+| **SII proveedor externo** | No mantenemos DTE | Dependencia externa, caída SII = no boleta | **Cola offline:** boletas pendientes se guardan en DB, se reintentan cada 5min |
+| **VPS single-instance** | Bajo costo, full control | Sin HA, downtime = downtime | Upgrade futuro a multi-zone o GCP Cloud Run |
 
 ---
 
 ## 📋 Checklist Pre-Sprint 0
 
-- [ ] Stack aprobado por equipo técnico
-- [ ] GCP proyecto creado + billing configurado
-- [ ] Repositorios GitHub creados
-- [ ] Secret Manager en GCP para keys
-- [ ] Dockerfile + docker-compose.yml plantillas
-- [ ] GitHub Actions workflow templates
-- [ ] Especificaciones hardware obtenidas (martes)
-- [ ] Proveedor SII confirmado + sandbox access
-- [ ] Base de datos schema definida
+- [x] Stack aprobado: Python + Vue + PostgreSQL + VPS Hetzner
+- [x] Hardware especificado: Digi SM-110, Scan lux desktop 2D, MercadoPago
+- [x] Infraestructura decidida: VPS Hetzner CX31 ($3.60/mes) + Docker
+- [x] Modo offline documentado: Cola de boletas + reintentos automáticos
+- [x] Multi-tenant con RLS: Row-level security para aislamiento store_id
+- [ ] Repositorios GitHub creados (4: backend, frontend, infra, docs)
+- [ ] Dockerfile + docker-compose.yml (PostgreSQL, Redis, Backend, Frontend)
+- [ ] GitHub Actions workflow (test, lint, build, deploy a VPS)
+- [ ] Base de datos schema Alembic inicial (migrations/versions/001_initial.py)
+- [ ] VPS Hetzner provisioned + Docker instalado
+- [ ] Proveedor SII confirmado + sandbox access (Bsale/Acepta)
+- [ ] `.env.example` plantilla con secrets (DB_URL, REDIS_URL, SII_KEY, JWT_SECRET)
 
 ---
 
-**Versión:** 0.1  
-**Últimas actualización:** 5 de abril 2026
+**Versión:** 0.2  
+**Última actualización:** 20 de abril 2026  
+**Cambios principales:** VPS Hetzner confirmado, Hardware specs, Modo Offline, Multi-tenant RLS documentado
